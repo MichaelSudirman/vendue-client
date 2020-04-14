@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
-// Component
-// Material UI core imports
 
-class auctionList extends Component {
+// Component
+
+class login extends Component {
   render() {
     return <Fragment></Fragment>;
   }
 }
 
-export default auctionList;
+export default login;

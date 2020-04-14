@@ -4,7 +4,7 @@ import MyButton from "../utils/MyButton";
 import MyDropzone from "../utils/MyDropzone";
 import MyTimePicker from "../utils/MyTimePicker";
 // actions
-import { createAuction } from "../../action/auctionActions";
+import { createAuction } from "../../actions/auctionActions";
 // Material UI Core Imports
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
@@ -67,10 +67,11 @@ class AuctionDialog extends Component {
 
     return (
       <Fragment>
-        <MyButton onClick={this.handleOpen} tip="Create an Auction">
+        <Button variant="contained"
+      color="primary" onClick={this.handleOpen} tip="Create an Auction">
           <AddCircleOutlineIcon />
           Create an Auction
-        </MyButton>
+        </Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -136,7 +137,7 @@ class AuctionDialog extends Component {
             <Button onClick={this.checkState} color="primary">
               State
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleClose} color="secondary">
               Cancel
             </Button>
             <Button onClick={this.handleSubmit} color="primary" autoFocus>

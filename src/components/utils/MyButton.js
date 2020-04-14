@@ -11,25 +11,11 @@ export default ({
   tip,
   btnClassName,
   tipClassName,
-  withTooltip,
   tipPlacement,
 }) => (
-  <Fragment>
-    {withTooltip ? (
-      <Tooltip title={tip} className={tipClassName} placement={tipPlacement}>
-        <IconButton onClick={onClick} className={btnClassName}>
-          {children}
-        </IconButton>
-      </Tooltip>
-    ) : (
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={onClick}
-        className={btnClassName}
-      >
-        {children}
-      </Button>
-    )}
-  </Fragment>
+  <Tooltip title={tip} className={tipClassName} placement={tipPlacement}>
+    <IconButton onClick={onClick} className={btnClassName}>
+      {children}
+    </IconButton>
+  </Tooltip>
 );
