@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
-import { compose, withState, withHandlers } from "recompose";
 // Components and utils
 import MyButton from "../utils/MyButton";
 import MyDropzone from "../utils/MyDropzone";
-import { auctionInitialState as initialState } from "../../utils/auction";
+import MyTimePicker from "../utils/MyTimePicker";
+// actions
+import { createAuction } from "../../action/auctionActions";
 // Material UI Core Imports
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
@@ -14,7 +15,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 // Material UI Icon Imports
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import NewDropZone from "../utils/NewDropZone";
 
 const styles = (theme) => ({
   ...theme.global,
@@ -32,11 +32,6 @@ const displayFiles = (files) =>
     </li>
   ));
 
-const createAuction = (data) => {
-  console.log(data);
-};
-
-
 class AuctionDialog extends Component {
   constructor(props) {
     super(props);
@@ -46,25 +41,26 @@ class AuctionDialog extends Component {
       initialBid: 0,
       condition: "",
       description: "",
-      file: [],
+      expiredDate: new Date(),
+      files: [],
+      error: {},
     };
     // Create a initialState
     this.initialState = this.state;
   }
 
-  callbackFunction = (childData) => {
-    this.setState({ file: childData });
-    console.log("received ChildData");
-    console.log(this.state);
-  };
-
-  handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
   handleOpen = () => this.setState({ open: true });
   handleClose = () => this.setState(this.initialState);
-  handleSubmit = () => createAuction(this.state);
+  handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  handleSubmit = async () =>
+    await createAuction(this.state)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
+  DropzoneCallBack = (childData) => this.setState({ files: childData });
+  TimePickerCallBack = (childData) => this.setState({ expiredDate: childData });
+  // TEST
+  checkState = () => console.log(this.state);
 
   render() {
     const { classes } = this.props;
@@ -88,6 +84,8 @@ class AuctionDialog extends Component {
               name="name"
               label="Name"
               placeholder="Your auction's display name"
+              error={this.state.error.name ? true : false}
+              helperText={this.state.error.name}
               className={classes.textField}
               onChange={this.handleChange}
               fullWidth
@@ -96,8 +94,10 @@ class AuctionDialog extends Component {
               id="initialBid"
               name="initialBid"
               label="Initial Bid"
-              placeholder="Your auction's inital bid"
+              placeholder="Your auction's inital bid in Australian Dollar (AUD)"
               type="number"
+              error={this.state.error.initialBid ? true : false}
+              helperText={this.state.error.initialBid}
               className={classes.textField}
               onChange={this.handleChange}
               fullWidth
@@ -107,6 +107,8 @@ class AuctionDialog extends Component {
               name="condition"
               label="Condition"
               placeholder="Your auction product's condition"
+              error={this.state.error.condition ? true : false}
+              helperText={this.state.error.condition}
               className={classes.textField}
               onChange={this.handleChange}
               fullWidth
@@ -116,19 +118,24 @@ class AuctionDialog extends Component {
               name="description"
               label="Description"
               placeholder="Your auction's details here"
+              error={this.state.error.description ? true : false}
+              helperText={this.state.error.description}
               className={classes.textField}
               onChange={this.handleChange}
               multiline
               fullWidth
             />
+            <MyTimePicker parentCallback={this.TimePickerCallBack} />
             <MyDropzone
-              parentCallback={this.callbackFunction}
-              className={classes.textField}
+              parentCallback={this.DropzoneCallBack}
+              classes={classes.textField}
             />
-            {displayFiles(this.state.file)}
+            {displayFiles(this.state.files)}
           </DialogContent>
-
           <DialogActions>
+            <Button onClick={this.checkState} color="primary">
+              State
+            </Button>
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
@@ -141,17 +148,5 @@ class AuctionDialog extends Component {
     );
   }
 }
-
-// const enhance = compose(
-//   withState("open", "setOpen", initialState.open),
-//   withState("name", "setName", initialState.name),
-//   withState("initialBid", "setInitialBid", initialState.initialBid),
-//   withState("condition", "setCondition", initialState.condition),
-//   withState("description", "setDescription", initialState.description),
-//   withState("file", "setFile", initialState.file),
-//   withHandlers({clearField: ({setOpen,setName,setCondition,setDescription,setFile}) => () => {
-
-//   }})
-// );
 
 export default withStyles(styles)(AuctionDialog);

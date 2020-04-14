@@ -20,13 +20,16 @@ const styles = {
 };
 
 function MyDropzone(props) {
-  const callParent = acceptedFiles => props.parentCallback(acceptedFiles);
+  const { parentCallback } = props;
+
+  const callParent = (acceptedFiles) => parentCallback(acceptedFiles);
   const style = styles.baseStyle;
 
   return (
     <Fragment>
       <Dropzone
         accept="image/*"
+        maxSize = {10000000}
         onDrop={(acceptedFiles) => {
           console.log(acceptedFiles);
           callParent(acceptedFiles);

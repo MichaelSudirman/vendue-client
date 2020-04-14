@@ -7,6 +7,7 @@ import auctionList from "./pages/auctionList";
 import home from "./pages/home";
 // Components and utils
 import themeObject from "./utils/theme";
+import {getUrl} from './utils/environment'
 // Material UI core imports
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
@@ -16,7 +17,7 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
   cannot POST using proxy key under pacakage.json
 */
 // axios.defaults.baseURL = "https://us-central1-soc-med.cloudfunctions.net/api";
-axios.defaults.baseURL = "http://127.0.0.1:5000";
+axios.defaults.baseURL = getUrl();
 
 
 
