@@ -32,4 +32,16 @@ const createAuction = (data) => {
   });
 };
 
-export { createAuction };
+const readAuctions = () => {
+  return new Promise((resolve, reject) => {
+    console.log('calling');
+    axios
+      .get("/auction/all")
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => reject(err.response));
+  });
+};
+
+export { createAuction, readAuctions };

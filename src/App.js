@@ -33,7 +33,7 @@ class App extends Component {
           <Router>
             <Navbar />
             <Grid container style={{ padding: "1rem" }}>
-              <Grid item xs={0} sm={2} />
+              <Grid item xs={false} sm={2} />
               <Grid item xs={12} sm={8}>
                 <Switch>
                   <Route exact path="/" component={home} />
@@ -45,7 +45,7 @@ class App extends Component {
                   />
                 </Switch>
               </Grid>
-              <Grid item xs={0} sm={2} />
+              <Grid item xs={false} sm={2} />
             </Grid>
           </Router>
         </MuiThemeProvider>
