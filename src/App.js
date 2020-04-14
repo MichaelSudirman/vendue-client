@@ -21,7 +21,7 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
   setting axios default url under the POST bug,
   cannot POST using proxy key under pacakage.json
 */
-axios.defaults.baseURL = "https://vendue.herokuapp.com/";
+axios.defaults.baseURL = getUrl();
 
 const theme = createMuiTheme(themeObject);
 
