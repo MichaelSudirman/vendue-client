@@ -40,8 +40,7 @@ class App extends Component {
                   <Route exact path="/login" component={login} />
                   <Route exact path="/signup" component={signup} />
                   <Route
-                    exact
-                    path="/user_id/auctions"
+                    exact path="/auctionform"
                     component={auctionList}
                   />
                 </Switch>
