@@ -2,7 +2,7 @@ import axios from "axios";
 // Components and utils
 import { getUnixTime, getISOString } from "../utils/common";
 
-const createAuction = (data) => {
+export const createAuction = (data) => {
   return new Promise((resolve, reject) => {
     const formData = new FormData();
     const unixTime = getUnixTime(data.expiredDate);
@@ -32,7 +32,7 @@ const createAuction = (data) => {
   });
 };
 
-const readAuctions = () => {
+export const readAuctions = () => {
   return new Promise((resolve, reject) => {
     console.log('calling');
     axios
@@ -44,4 +44,3 @@ const readAuctions = () => {
   });
 };
 
-export { createAuction, readAuctions };
