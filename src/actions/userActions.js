@@ -27,7 +27,7 @@ export const loginUser = (data, history) => {
     .then((res) => {
       setAuthorizationHeader(res.data.payload.token);
       history.push("/");
-      window.location.reload()
+      // window.location.reload()
       return res.data;
     })
     .catch((err) => {
