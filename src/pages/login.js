@@ -11,6 +11,11 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+// Material UI icon imports
+import CircularProgressIcon from "@material-ui/core/CircularProgress";
+import EmailIcon from "@material-ui/icons/Email";
+import PersonIcon from "@material-ui/icons/Person";
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
 
 const styles = (theme) => ({
   ...theme.global,
@@ -22,23 +27,23 @@ class login extends Component {
     this.state = {
       username: "",
       password: "",
+      loading: false,
       errors: {},
     };
   }
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ loading: true });
-    loginUser(this.state, this.props.history).then((response) => {
-      if (response.payload) {
+    loginUser(this.state, this.props.history)
+      .then((res) => {
         this.setState(this.initialState);
-        this.setState({ success: true });
-      } else if (response.error) {
+      })
+      .catch((err) => {
         this.setState({
           loading: false,
-          errors: response.error,
+          errors: err.error,
         });
-      }
-    });
+      });
   };
   handleChange = (event) =>
     this.setState({
@@ -94,15 +99,15 @@ class login extends Component {
                     variant="contained"
                     color="primary"
                     className={classes.button}
-                    // disabled={loading}
+                    disabled={this.state.loading}
                   >
                     login
-                    {/* {loading && (
-                      <CircularProgress
+                    {this.state.loading && (
+                      <CircularProgressIcon
                         size={30}
                         className={classes.progress}
                       />
-                    )} */}
+                    )}
                   </Button>
                   <br />
                   <small>

@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgressIcon from "@material-ui/core/CircularProgress";
 // Material UI Lab Imports
 import Alert from "@material-ui/lab/Alert";
 
@@ -42,18 +42,18 @@ class signup extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ loading: true });
-    signupUser(this.state).then((response) => {
-      if (response.payload) {
+    signupUser(this.state)
+      .then((res) => {
         this.setState(this.initialState);
         this.setState({ success: true });
-      } else if (response.error) {
+      })
+      .catch((err) => {
         this.setState({
           loading: false,
           success: false,
-          errors: response.error,
+          errors: err.error,
         });
-      }
-    });
+      });
   };
   render() {
     const { classes } = this.props;
@@ -140,7 +140,7 @@ class signup extends Component {
                   >
                     Signup
                     {this.state.loading && (
-                      <CircularProgress
+                      <CircularProgressIcon
                         size={30}
                         className={classes.progress}
                       />

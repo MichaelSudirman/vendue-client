@@ -11,7 +11,9 @@ export const signupUser = (data) => {
   return axios
     .post("/register", newUserData)
     .then((res) => res.data)
-    .catch((err) => err.response.data);
+    .catch((err) => {
+      throw err.response.data;
+    });
 };
 
 export const loginUser = (data, history) => {
@@ -25,24 +27,33 @@ export const loginUser = (data, history) => {
     .then((res) => {
       setAuthorizationHeader(res.data.payload.token);
       history.push("/");
+      window.location.reload()
       return res.data;
     })
-    .catch((err) => err.response.data);
+    .catch((err) => {
+      throw err.response.data;
+    });
 };
 
-const getUserData = () => (dispatch) => {
-  return new Promise((resolve, reject) => {
-    axios
-      .get("/user")
-      .then((res) => {
-        resolve({ payload: res.data });
-      })
-      .catch((err) => console.log(err));
-  });
+export const readUser = () => {
+  return axios
+    .post("/user/self")
+    .then((res) => {
+      console.log(res.data);
+      return res.data.payload;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
+
+export const logoutUser = () => {
+  localStorage.removeItem("Authorization");
+  delete axios.defaults.headers.common["Authorization"];
 };
 
 const setAuthorizationHeader = (token) => {
   //   const IdToken = token;
-  localStorage.setItem("IdToken", token);
+  localStorage.setItem("Authorization", token);
   axios.defaults.headers.common["Authorization"] = token;
 };

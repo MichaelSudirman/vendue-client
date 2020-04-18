@@ -33,14 +33,10 @@ export const createAuction = (data) => {
 };
 
 export const readAuctions = () => {
-  return new Promise((resolve, reject) => {
-    console.log('calling');
-    axios
-      .get("/auction/all")
-      .then((res) => {
-        resolve(res);
-      })
-      .catch((err) => reject(err.response));
-  });
+  return axios
+    .get("/auction/all")
+    .then((res) => res.data.payload)
+    .catch((err) => {
+      throw err.response.data;
+    });
 };
-
