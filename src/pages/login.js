@@ -13,9 +13,6 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 // Material UI icon imports
 import CircularProgressIcon from "@material-ui/core/CircularProgress";
-import EmailIcon from "@material-ui/icons/Email";
-import PersonIcon from "@material-ui/icons/Person";
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
 
 const styles = (theme) => ({
   ...theme.global,

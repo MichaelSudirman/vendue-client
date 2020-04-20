@@ -1,22 +1,21 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 // Component
-import MyButton from "../utils/MyButton";
+import MyButton from "../common/MyButton";
 import Toolbar from "@material-ui/core/Toolbar";
 // Actions
-import { readUser, logoutUser } from "../../actions/userActions";
+import { logoutUser } from "../../actions/userActions";
 // Material UI core imports
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
 // Material UI icons imports
-import HomeIcon from "@material-ui/icons/Home";
 import Tooltip from "@material-ui/core/Tooltip";
 // Material UI core icons
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
-import MenuIcon from "@material-ui/icons/Menu";
+import HomeIcon from "@material-ui/icons/Home";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import PersonIcon from "@material-ui/icons/Person";
 
 const styles = (theme) => ({
   ...theme.global,
@@ -51,8 +50,34 @@ class Navbar extends Component {
   checkState = () => console.log(this.state);
   render() {
     const { classes } = this.props;
-    const profile = localStorage.getItem("Authorization");
+    const authenticated = localStorage.getItem("Authorization");
 
+    const user = authenticated ? (
+      <Fragment>
+        <Link to="/auctions">
+          <MyButton tip={"My Account"}>
+            <ShoppingCartIcon />
+          </MyButton>
+        </Link>
+        <Link to="/profile">
+          <MyButton tip={"My Account"}>
+            <PersonIcon />
+          </MyButton>
+        </Link>
+        <Button className={classes.navButton} onClick={this.logout}>
+          logout
+        </Button>
+      </Fragment>
+    ) : (
+      <Fragment>
+        <Link to="/login">
+          <Button className={classes.navButton}>Login</Button>
+        </Link>
+        <Link to="/signup">
+          <Button className={classes.navButton}>Signup</Button>
+        </Link>
+      </Fragment>
+    );
     return (
       <AppBar position="static" className={classes.root}>
         <Toolbar>
@@ -65,27 +90,8 @@ class Navbar extends Component {
             <Typography variant="h6" className={classes.title}>
               Vendue
             </Typography>
-            {console.log("user", profile)}
-            {profile ? (
-              <Fragment>
-                {<Button className={classes.navButton}> authenticated</Button>}
-                <Button className={classes.navButton} onClick={this.logout}>
-                  logout
-                </Button>
-              </Fragment>
-            ) : (
-              <Fragment>
-                <Link to="/login">
-                  <Button className={classes.navButton}>Login</Button>
-                </Link>
-                <Link to="/signup">
-                  <Button className={classes.navButton}>Signup</Button>
-                </Link>
-              </Fragment>
-            )}
-            {localStorage.getItem("Authorization") &&
-              localStorage.getItem("Authorization").split("@")[0]}
-            <Button onClick={this.checkState}>checkState</Button>
+            {user}
+            {/* <Button onClick={this.checkState}>checkState</Button> */}
           </Fragment>
         </Toolbar>
       </AppBar>

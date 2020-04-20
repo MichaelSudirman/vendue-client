@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 // Components and utils
-import MyButton from "../components/utils/MyButton";
+import MyButton from "../components/common/MyButton";
 import AuctionDialog from "../components/auction/AuctionDialog";
 // Material UI Core Imports
 import withStyles from "@material-ui/core/styles/withStyles";

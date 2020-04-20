@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
 // Components and utils
-import MyButton from "../utils/MyButton";
-import MyDropzone from "../utils/MyDropzone";
-import MyTimePicker from "../utils/MyTimePicker";
+import MyButton from "../common/MyButton";
+import MyDropzone from "../common/MyDropzone";
+import MyTimePicker from "../common/MyTimePicker";
 // actions
 import { createAuction } from "../../actions/auctionActions";
 // Material UI Core Imports
