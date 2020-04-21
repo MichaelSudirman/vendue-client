@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 // Component
 import MyButton from "../common/MyButton";
 import Toolbar from "@material-ui/core/Toolbar";
-// Actions
-import { logoutUser } from "../../actions/userActions";
 // Material UI core imports
-import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
+import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 // Material UI icons imports
@@ -41,10 +39,6 @@ class Navbar extends Component {
   state = {
     user: null,
   };
-  logout = () => {
-    logoutUser();
-    this.setState({ user: null });
-  };
 
   // TEST
   checkState = () => console.log(this.state);
@@ -64,9 +58,6 @@ class Navbar extends Component {
             <PersonIcon />
           </MyButton>
         </Link>
-        <Button className={classes.navButton} onClick={this.logout}>
-          logout
-        </Button>
       </Fragment>
     ) : (
       <Fragment>

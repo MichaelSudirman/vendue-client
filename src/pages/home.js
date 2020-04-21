@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import AuctionBox from "../components/auction/AuctionBox";
 import { getUrl } from "../utils/environment";
 // Actions
-import { readAuctions } from "../actions/auctionActions";
+import { readAuctions } from "../actions/dataActions";
 // Material UI core imports
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 class auctionList extends Component {
   state = {
@@ -15,7 +17,7 @@ class auctionList extends Component {
   getAuctions = () => {
     readAuctions()
       .then((res) => this.setState({ auctions: res }))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log('homeGetAuctions',err));
   };
 
   // TEST
@@ -27,22 +29,22 @@ class auctionList extends Component {
 
   render() {
     const { auctions } = this.state;
+    const auctionMarkup = auctions.map((auction) => (
+      <AuctionBox auction={auction} key={auction._id.$oid} />
+    ));
     return (
       <Fragment>
-        <img
-          src="https://storage.cloud.google.com/vendue/no-img.png"
-          alt="profile"
-        />
         <div>{getUrl()}</div>
-        {localStorage.getItem("Authorization")}
         <Link to="/auctionform">
           <Button>get to form</Button>
         </Link>
 
         <Button onClick={this.checkState}>checkState</Button>
-        {auctions.map((auction) => (
-          <AuctionBox auction={auction} />
-        ))}
+        {/* <AuctionBox auctions={auctions}/> */}
+        <Typography variant="h5">List of Auctions</Typography>
+        <Grid container spacing={2}>
+          {auctionMarkup}
+        </Grid>
       </Fragment>
     );
   }

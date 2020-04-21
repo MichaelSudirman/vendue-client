@@ -4,7 +4,7 @@ import MyButton from "../common/MyButton";
 import MyDropzone from "../common/MyDropzone";
 import MyTimePicker from "../common/MyTimePicker";
 // actions
-import { createAuction } from "../../actions/auctionActions";
+import { createAuction } from "../../actions/dataActions";
 // Material UI Core Imports
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
@@ -52,11 +52,12 @@ class AuctionDialog extends Component {
   handleOpen = () => this.setState({ open: true });
   handleClose = () => this.setState(this.initialState);
   handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
-  handleSubmit = async () =>
-    await createAuction(this.state)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-
+  handleSubmit = () =>
+    createAuction(this.state)
+      // .then((res) => console.log('auctionDialogSubmit',res))
+      .then((res) => this.setState(this.initialState))
+      .catch((err) => this.setState({ error: err }));
+ 
   DropzoneCallBack = (childData) => this.setState({ files: childData });
   TimePickerCallBack = (childData) => this.setState({ expiredDate: childData });
   // TEST
@@ -67,8 +68,12 @@ class AuctionDialog extends Component {
 
     return (
       <Fragment>
-        <Button variant="contained"
-      color="primary" onClick={this.handleOpen} tip="Create an Auction">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.handleOpen}
+          tip="Create an Auction"
+        >
           <AddCircleOutlineIcon />
           Create an Auction
         </Button>

@@ -31,7 +31,7 @@ class login extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ loading: true });
-    loginUser(this.state, this.props.history)
+    loginUser(this.state)
       .then((res) => {
         this.setState(this.initialState);
       })

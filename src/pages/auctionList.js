@@ -16,9 +16,7 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 
 const styles = (theme) => ({
-  ...theme.global,
-  input: "",
-  button: "",
+  ...theme.global
 });
 
 class auctionList extends Component {

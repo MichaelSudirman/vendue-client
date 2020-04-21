@@ -16,7 +16,7 @@ export const signupUser = (data) => {
     });
 };
 
-export const loginUser = (data, history) => {
+export const loginUser = (data) => {
   const userData = {
     username: data.username,
     password: data.password,
@@ -26,21 +26,8 @@ export const loginUser = (data, history) => {
     .post("/login", userData)
     .then((res) => {
       setAuthorizationHeader(res.data.payload.token);
-      history.push("/");
-      window.location.reload()
+      window.location.href = "/";
       return res.data;
-    })
-    .catch((err) => {
-      throw err.response.data;
-    });
-};
-
-export const readUser = () => {
-  return axios
-    .post("/user/self")
-    .then((res) => {
-      console.log(res.data);
-      return res.data.payload;
     })
     .catch((err) => {
       throw err.response.data;
@@ -50,6 +37,7 @@ export const readUser = () => {
 export const logoutUser = () => {
   localStorage.removeItem("Authorization");
   delete axios.defaults.headers.common["Authorization"];
+  window.location.href = "/";
 };
 
 const setAuthorizationHeader = (token) => {
