@@ -23,6 +23,7 @@ import Grid from "@material-ui/core/Grid";
   setting axios default url under the POST bug,
   cannot POST using proxy key under pacakage.json
 */
+// axios.defaults.baseURL = getUrl();
 axios.defaults.baseURL = "https://vendue.herokuapp.com/";
 
 axios.interceptors.request.use(
@@ -39,7 +40,11 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response.status === 401) logoutUser();
+    console.log("axiosInterceptors", error.response.data);
+    console.log(error.response.status);
+    const statusUnauthorized = error.response.status === 401;
+    const isTokenError = error.response.data.error.token;
+    if (statusUnauthorized && isTokenError) logoutUser();
     // Reflect.deleteProperty(axios.defaults.headers.common, "Authorization");
     return Promise.reject(error);
   }

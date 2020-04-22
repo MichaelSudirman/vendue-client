@@ -16,8 +16,8 @@ class auctionList extends Component {
   };
   getAuctions = () => {
     readAuctions()
-      .then((res) => this.setState({ auctions: res }))
-      .catch((err) => console.log('homeGetAuctions',err));
+    .then((res) => this.setState({ auctions: res }))
+    .catch((err) => console.log('homeGetAuctions',err));
   };
 
   // TEST
@@ -30,6 +30,7 @@ class auctionList extends Component {
   render() {
     const { auctions } = this.state;
     const auctionMarkup = auctions.map((auction) => (
+      // <span>hi</span>
       <AuctionBox auction={auction} key={auction._id.$oid} />
     ));
     return (

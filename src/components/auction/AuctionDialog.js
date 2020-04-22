@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 // Components and utils
-import MyButton from "../common/MyButton";
 import MyDropzone from "../common/MyDropzone";
 import MyTimePicker from "../common/MyTimePicker";
 // actions
@@ -54,7 +53,6 @@ class AuctionDialog extends Component {
   handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
   handleSubmit = () =>
     createAuction(this.state)
-      // .then((res) => console.log('auctionDialogSubmit',res))
       .then((res) => this.setState(this.initialState))
       .catch((err) => this.setState({ error: err }));
  

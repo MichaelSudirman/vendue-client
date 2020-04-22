@@ -37,7 +37,7 @@ export const loginUser = (data) => {
 export const logoutUser = () => {
   localStorage.removeItem("Authorization");
   delete axios.defaults.headers.common["Authorization"];
-  window.location.href = "/";
+  window.location.href = "/login";
 };
 
 const setAuthorizationHeader = (token) => {

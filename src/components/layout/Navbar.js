@@ -9,8 +9,6 @@ import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 // Material UI icons imports
-import Tooltip from "@material-ui/core/Tooltip";
-// Material UI core icons
 import HomeIcon from "@material-ui/icons/Home";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PersonIcon from "@material-ui/icons/Person";
@@ -36,12 +34,6 @@ const styles = (theme) => ({
 });
 
 class Navbar extends Component {
-  state = {
-    user: null,
-  };
-
-  // TEST
-  checkState = () => console.log(this.state);
   render() {
     const { classes } = this.props;
     const authenticated = localStorage.getItem("Authorization");
@@ -82,7 +74,6 @@ class Navbar extends Component {
               Vendue
             </Typography>
             {user}
-            {/* <Button onClick={this.checkState}>checkState</Button> */}
           </Fragment>
         </Toolbar>
       </AppBar>
