@@ -7,11 +7,12 @@ import Navbar from "./components/layout/Navbar";
 import themeObject from "./utils/theme";
 import { getUrl } from "./utils/environment";
 // Pages
-import auctionList from "./pages/auctionList";
 import home from "./pages/home";
-import profile from "./pages/profile";
 import login from "./pages/login";
 import signup from "./pages/signup";
+import profile from "./pages/profile";
+import auctionList from "./pages/auctionList";
+import auctionDetails from "./pages/auctionDetails.js";
 // Actions
 import { logoutUser } from "./actions/userActions";
 // Material UI core imports
@@ -23,8 +24,8 @@ import Grid from "@material-ui/core/Grid";
   setting axios default url under the POST bug,
   cannot POST using proxy key under pacakage.json
 */
-// axios.defaults.baseURL = getUrl();
-axios.defaults.baseURL = "https://vendue.herokuapp.com/";
+axios.defaults.baseURL = getUrl();
+// axios.defaults.baseURL = "https://vendue.herokuapp.com/";
 
 axios.interceptors.request.use(
   (config) => {
@@ -68,6 +69,7 @@ class App extends Component {
                   <Route exact path="/signup" component={signup} />
                   <Route exact path="/profile" component={profile} />
                   <Route exact path="/auctions" component={auctionList} />
+                  <Route exact path="/auction/:auctionId" component={auctionDetails} />
                 </Switch>
               </Grid>
               <Grid item xs={false} sm={2} />

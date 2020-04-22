@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { withRouter } from "react-router-dom";
+import {  Link } from "react-router-dom";
 // Components and utils
 import countdown from "../../utils/countdown";
 // Material UI Core Imports
@@ -34,9 +34,6 @@ const styles = (theme) => ({
 });
 
 class AuctionBox extends Component {
-  handleDetails = (auctionId, history) => {
-    history.push(`/auction/${auctionId}`);
-  };
   render() {
     const {
       classes,
@@ -54,34 +51,40 @@ class AuctionBox extends Component {
     return (
       <Fragment>
         <Grid item sm={3} xs={12}>
-          <Tooltip title="Show details" aria-label="add">
-            <Card
-              className={classes.box}
-              onClick={() => this.handleDetails(auctionId, this.props.history)}
-            >
-              <CardContent>
-                <Typography variant="h6">{name}</Typography>
-              </CardContent>
-              <div className={classes.imageBox}>
-                <img src={imageUrls[0]} height={64} width={64} alt="profile" />
-              </div>
-              <CardContent>
-                <Typography variant="body2">
-                  <b>{timeLeft}</b> left
-                </Typography>
-                <Typography variant="body2">
-                  Initial bid: <b>{initialBid}</b> by <b>{sellerName}</b>
-                </Typography>
-                <Typography variant="body2">
-                  Highest bid: <b>{0}</b> by <b>{"dummy"}</b>
-                </Typography>
-              </CardContent>
-            </Card>
-          </Tooltip>
+          <Link to={`/auction/${auctionId}`}>
+            <Tooltip title="Go to details" aria-label="add" placement="top">
+              <Card
+                className={classes.box}
+              >
+                <CardContent>
+                  <Typography variant="h6">{name}</Typography>
+                </CardContent>
+                <div className={classes.imageBox}>
+                  <img
+                    src={imageUrls[0]}
+                    height={64}
+                    width={64}
+                    alt="profile"
+                  />
+                </div>
+                <CardContent>
+                  <Typography variant="body2">
+                    <b>{timeLeft}</b> left
+                  </Typography>
+                  <Typography variant="body2">
+                    Initial bid: <b>{initialBid}</b> by <b>{sellerName}</b>
+                  </Typography>
+                  <Typography variant="body2">
+                    Highest bid: <b>{0}</b> by <b>{"dummy"}</b>
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Tooltip>
+          </Link>
         </Grid>
       </Fragment>
     );
   }
 }
 
-export default withRouter(withStyles(styles)(AuctionBox));
+export default withStyles(styles)(AuctionBox);

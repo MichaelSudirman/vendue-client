@@ -2,16 +2,22 @@ import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 // Component
 import MyButton from "../common/MyButton";
-import Toolbar from "@material-ui/core/Toolbar";
 // Material UI core imports
 import withStyles from "@material-ui/core/styles/withStyles";
+import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+// Actions
+import { logoutUser } from "../../actions/userActions";
 // Material UI icons imports
 import HomeIcon from "@material-ui/icons/Home";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PersonIcon from "@material-ui/icons/Person";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const styles = (theme) => ({
   ...theme.global,
@@ -31,25 +37,56 @@ const styles = (theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
+  menuIcon: {
+    color: "black",
+  },
+  descriptionIcon: {
+    paddingRight: 5,
+  },
 });
 
 class Navbar extends Component {
+  state = {
+    anchorEl: null,
+  };
+  handleOpen = (event) => {
+    this.setState({ anchorEl: event.target });
+  };
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
   render() {
     const { classes } = this.props;
-    const authenticated = localStorage.getItem("Authorization");
-
-    const user = authenticated ? (
+    const userId = localStorage.getItem("Authorization")
+      ? localStorage.getItem("Authorization").split("@")[0]
+      : null;
+    const profileNavbar = userId ? (
       <Fragment>
         <Link to="/auctions">
-          <MyButton tip={"My Account"}>
+          <MyButton tip={"My Auctions"}>
             <ShoppingCartIcon />
           </MyButton>
         </Link>
-        <Link to="/profile">
-          <MyButton tip={"My Account"}>
-            <PersonIcon />
-          </MyButton>
-        </Link>
+        <MyButton tip={"My Account"} onClick={this.handleOpen}>
+          <PersonIcon />
+        </MyButton>
+        <Menu
+          id="simple-menu"
+          anchorEl={this.state.anchorEl}
+          keepMounted
+          open={Boolean(this.state.anchorEl)}
+          onClose={this.handleClose}
+        >
+          <Link to="/profile">
+            <MenuItem onClick={this.handleClose} className={classes.menuIcon}>
+              <AccountBoxIcon className={classes.descriptionIcon} />
+              Profile
+            </MenuItem>
+          </Link>
+          <MenuItem onClick={logoutUser}>
+            <ExitToAppIcon className={classes.descriptionIcon} /> Logout
+          </MenuItem>
+        </Menu>
       </Fragment>
     ) : (
       <Fragment>
@@ -73,7 +110,7 @@ class Navbar extends Component {
             <Typography variant="h6" className={classes.title}>
               Vendue
             </Typography>
-            {user}
+            {profileNavbar}
           </Fragment>
         </Toolbar>
       </AppBar>
