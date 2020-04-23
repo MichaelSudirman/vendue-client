@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
+import { withRouter } from "react-router-dom";
 // Components and utils
 import MyDropzone from "../common/MyDropzone";
-import MyTimePicker from "../common/MyTimePicker";
+import MyButton from "../common/MyButton";
 // actions
-import { createAuction } from "../../actions/dataActions";
+import { updateProfile } from "../../actions/userActions";
 // Material UI Core Imports
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
@@ -13,7 +14,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 // Material UI Icon Imports
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import EditIcon from "@material-ui/icons/Edit";
 
 const styles = (theme) => ({
   ...theme.global,
@@ -23,7 +24,6 @@ const styles = (theme) => ({
     marginBottom: 20,
   },
 });
-
 const displayFiles = files =>
   files.map(file => (
     <li key={file.path}>
@@ -31,16 +31,13 @@ const displayFiles = files =>
     </li>
   ));
 
-class AuctionDialog extends Component {
+class profileDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      name: "",
-      initialBid: 0,
-      condition: "",
-      description: "",
-      expiredDate: new Date(),
+      description: '',
+      location: '',
       files: [],
       error: {},
     };
@@ -48,88 +45,66 @@ class AuctionDialog extends Component {
     this.initialState = this.state;
   }
 
+  componentDidMount() {
+    const {
+      user: { description, location },
+    } = this.props;
+    this.setState({ description, location });
+  }
   handleOpen = () => this.setState({ open: true });
-  handleClose = () => this.setState(this.initialState);
+  handleClose = () => this.setState({ error: {}, open: false });
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
-  handleSubmit = () =>
-    createAuction(this.state)
-      .then(res => this.setState(this.initialState))
-      .catch(err => this.setState({ error: err }));
-
   DropzoneCallBack = childData => this.setState({ files: childData });
-  TimePickerCallBack = childData => this.setState({ expiredDate: childData });
-  // TEST
-  checkState = () => console.log(this.state);
+  handleSubmit = () =>
+    updateProfile(this.state)
+      .then(res => {
+        this.props.handler()
+        this.handleClose()
+      })
+      .catch(err => this.setState({ error: err }));
 
   render() {
     const { classes } = this.props;
-
+    const { location, description, imageUrl } = this.state;
     return (
       <Fragment>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={this.handleOpen}
-          tip="Create an Auction"
-        >
-          <AddCircleOutlineIcon />
-          Create an Auction
-        </Button>
+        <MyButton tip="Edit Icon" onClick={this.handleOpen}>
+          <EditIcon />
+        </MyButton>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">Auction Form</DialogTitle>
+          <DialogTitle id="alert-dialog-title">Edit Your Profile</DialogTitle>
           <DialogContent>
-            <TextField
-              id="name"
-              name="name"
-              label="Name"
-              placeholder="Your auction's display name"
-              error={this.state.error.name ? true : false}
-              helperText={this.state.error.name}
-              className={classes.textField}
-              onChange={this.handleChange}
-              fullWidth
-            />
-            <TextField
-              id="initialBid"
-              name="initialBid"
-              label="Initial Bid"
-              placeholder="Your auction's inital bid in Australian Dollar (AUD)"
-              type="number"
-              error={this.state.error.initialBid ? true : false}
-              helperText={this.state.error.initialBid}
-              className={classes.textField}
-              onChange={this.handleChange}
-              fullWidth
-            />
-            <TextField
-              id="condition"
-              name="condition"
-              label="Condition"
-              placeholder="Your auction product's condition"
-              error={this.state.error.condition ? true : false}
-              helperText={this.state.error.condition}
-              className={classes.textField}
-              onChange={this.handleChange}
-              fullWidth
-            />
+            {imageUrl}
             <TextField
               id="description"
               name="description"
               label="Description"
-              placeholder="Your auction's details here"
+              placeholder="Tell more about yourself"
+              value={description}
               error={this.state.error.description ? true : false}
               helperText={this.state.error.description}
               className={classes.textField}
               onChange={this.handleChange}
+              fullWidth
               multiline
+            />
+            <TextField
+              id="location"
+              name="location"
+              label="Location"
+              placeholder="Tell more about your current location"
+              value={location}
+              error={this.state.error.location ? true : false}
+              helperText={this.state.error.location}
+              className={classes.textField}
+              onChange={this.handleChange}
               fullWidth
             />
-            <MyTimePicker parentCallback={this.TimePickerCallBack} />
             <MyDropzone
               parentCallback={this.DropzoneCallBack}
               classes={classes.textField}
@@ -153,4 +128,4 @@ class AuctionDialog extends Component {
   }
 }
 
-export default withStyles(styles)(AuctionDialog);
+export default withRouter(withStyles(styles)(profileDialog));

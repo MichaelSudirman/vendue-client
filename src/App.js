@@ -32,6 +32,7 @@ axios.interceptors.request.use(
     const token = localStorage.getItem("Authorization");
     if (token !== null) config.headers.Authorization = token.split("@")[1];
     return config;
+    
   },
   (error) => {
     return Promise.reject(error);
@@ -41,8 +42,8 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log("axiosInterceptors", error.response.data);
-    console.log(error.response.status);
+    console.log("axiosInterceptors", error.response);
+    console.log(error);
     const statusUnauthorized = error.response.status === 401;
     const isTokenError = error.response.data.error.token;
     if (statusUnauthorized && isTokenError) logoutUser();

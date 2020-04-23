@@ -13,41 +13,35 @@ import Typography from "@material-ui/core/Typography";
 class auctionList extends Component {
   state = {
     auctions: [],
+    loading: true,
   };
   getAuctions = () => {
     readAuctions()
-    .then((res) => this.setState({ auctions: res }))
-    .catch((err) => console.log('homeGetAuctions',err));
+      .then((res) => this.setState({ auctions: res, loading: false }))
+      .catch((err) => console.log("homeGetAuctions", err));
   };
-
-  // TEST
-  checkState = () => console.log(this.state);
 
   componentDidMount() {
     this.getAuctions();
   }
 
   render() {
-    const { auctions } = this.state;
-    const auctionMarkup = auctions.map((auction) => (
-      // <span>hi</span>
+    const { auctions, loading } = this.state;
+    const auctionMarkup = auctions.map(auction => (
       <AuctionBox auction={auction} key={auction._id.$oid} />
     ));
-    return (
-      <Fragment>
-        <div>{getUrl()}</div>
-        <Link to="/auctionform">
-          <Button>get to form</Button>
-        </Link>
+    return loading ? (
+      "loading..."
+    ) : (
+        <Fragment>
+          <Typography variant="h5">List of Auctions</Typography>
+          <Grid container spacing={2}>
+            {auctionMarkup}
+          </Grid>
 
-        <Button onClick={this.checkState}>checkState</Button>
-        {/* <AuctionBox auctions={auctions}/> */}
-        <Typography variant="h5">List of Auctions</Typography>
-        <Grid container spacing={2}>
-          {auctionMarkup}
-        </Grid>
-      </Fragment>
-    );
+          <div>{getUrl()}</div>
+        </Fragment>
+      );
   }
 }
 
