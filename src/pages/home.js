@@ -22,7 +22,9 @@ class auctionList extends Component {
   };
 
   componentDidMount() {
-    this.getAuctions();
+    readAuctions()
+      .then((res) => this.setState({ auctions: res, loading: false }))
+      .catch((err) => console.log("homeGetAuctions", err));
   }
 
   render() {
