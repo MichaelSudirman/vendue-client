@@ -40,8 +40,6 @@ class auctionList extends Component {
           <Grid container spacing={2}>
             {auctionMarkup}
           </Grid>
-
-          <div>{getUrl()}</div>
         </Fragment>
       );
   }
