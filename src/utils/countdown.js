@@ -20,6 +20,7 @@ var module;
  * @param {number} units the units to populate
  * @return {Object|number}
  */
+// eslint-disable-next-line no-unused-vars
 var countdown = (
 
 /**
@@ -28,6 +29,7 @@ var countdown = (
 function(module) {
 	/*jshint smarttabs:true */
 
+	// eslint-disable-next-line strict
 	'use strict';
 
 	/**
@@ -613,6 +615,7 @@ function(module) {
 	 * @param {string} toUnit
 	 */
 	function rippleRounded(ts, toUnit) {
+		// eslint-disable-next-line default-case
 		switch (toUnit) {
 			case 'seconds':
 				if (ts.seconds !== SECONDS_PER_MINUTE || isNaN(ts.minutes)) {

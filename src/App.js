@@ -6,6 +6,7 @@ import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import themeObject from "./utils/theme";
 import { getUrl } from "./utils/environment";
+// import history from "./utils/history";
 // Pages
 import home from "./pages/home";
 import login from "./pages/login";
@@ -13,6 +14,7 @@ import signup from "./pages/signup";
 import profile from "./pages/profile";
 import auctionList from "./pages/auctionList";
 import auctionDetails from "./pages/auctionDetails.js";
+import auctionSearch from './pages/auctionSearch.js';
 // Actions
 import { logoutUser } from "./actions/userActions";
 // Material UI core imports
@@ -32,7 +34,7 @@ axios.interceptors.request.use(
     const token = localStorage.getItem("Authorization");
     if (token !== null) config.headers.Authorization = token.split("@")[1];
     return config;
-    
+
   },
   (error) => {
     return Promise.reject(error);
@@ -65,6 +67,7 @@ class App extends Component {
               <Grid item xs={false} sm={2} />
               <Grid item xs={12} sm={8}>
                 <Switch>
+                  <Route exact path="/auction" component={auctionSearch} />
                   <Route exact path="/" component={home} />
                   <Route exact path="/login" component={login} />
                   <Route exact path="/signup" component={signup} />

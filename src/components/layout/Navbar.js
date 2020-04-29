@@ -2,9 +2,11 @@ import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 // Component
 import MyButton from "../common/MyButton";
+import SearchBar from './SearchBar'
 // Material UI core imports
 import withStyles from "@material-ui/core/styles/withStyles";
 import Toolbar from "@material-ui/core/Toolbar";
+import Hidden from '@material-ui/core/Hidden';
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
@@ -89,29 +91,30 @@ class Navbar extends Component {
         </Menu>
       </Fragment>
     ) : (
-      <Fragment>
-        <Link to="/login">
-          <Button className={classes.navButton}>Login</Button>
-        </Link>
-        <Link to="/signup">
-          <Button className={classes.navButton}>Signup</Button>
-        </Link>
-      </Fragment>
-    );
+        <Fragment>
+          <Link to="/login">
+            <Button className={classes.navButton}>Login</Button>
+          </Link>
+          <Link to="/signup">
+            <Button className={classes.navButton}>Signup</Button>
+          </Link>
+        </Fragment>
+      );
     return (
       <AppBar position="static" className={classes.root}>
         <Toolbar>
-          <Fragment>
-            <Link to="/">
-              <MyButton tip={"Home"}>
-                <HomeIcon className={classes.navButton} />
-              </MyButton>
-            </Link>
+          <Link to="/">
+            <MyButton tip={"Home"}>
+              <HomeIcon className={classes.navButton} />
+            </MyButton>
+          </Link>
+          <Hidden only="xs">
             <Typography variant="h6" className={classes.title}>
               Vendue
             </Typography>
-            {profileNavbar}
-          </Fragment>
+          </Hidden>
+          <SearchBar />
+          {profileNavbar}
         </Toolbar>
       </AppBar>
     );

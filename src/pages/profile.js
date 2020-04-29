@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import format from "date-fns/format";
 // Components and utils
 import ProfileDialog from "../components/profile/profileDialog";
 // Actions
@@ -9,7 +8,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 
 const styles = (theme) => ({
