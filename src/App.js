@@ -6,7 +6,6 @@ import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import themeObject from "./utils/theme";
 import { getUrl } from "./utils/environment";
-// import history from "./utils/history";
 // Pages
 import home from "./pages/home";
 import login from "./pages/login";
@@ -34,7 +33,6 @@ axios.interceptors.request.use(
     const token = localStorage.getItem("Authorization");
     if (token !== null) config.headers.Authorization = token.split("@")[1];
     return config;
-
   },
   (error) => {
     return Promise.reject(error);

@@ -8,6 +8,8 @@ import { createAuction } from "../../actions/dataActions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import CircularProgressIcon from "@material-ui/core/CircularProgress";
+import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -36,13 +38,14 @@ class AuctionDialog extends Component {
     super(props);
     this.state = {
       open: false,
+      loading: false,
       name: "",
       initialBid: 0,
       condition: "",
       description: "",
       expiredDate: new Date(),
       files: [],
-      error: {},
+      errors: {},
     };
     // Create an initialState
     this.initialState = this.state;
@@ -51,18 +54,24 @@ class AuctionDialog extends Component {
   handleOpen = () => this.setState({ open: true });
   handleClose = () => this.setState(this.initialState);
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
-  handleSubmit = () =>
-    createAuction(this.state)
-      .then(res => this.setState(this.initialState))
-      .catch(err => this.setState({ error: err }));
+  handleSubmit = () => {
+    this.setState({ loading: true, errors: {} });
 
+    createAuction(this.state)
+      .then(res => {
+        this.setState(this.initialState);
+        this.setState({ loading: false })
+      })
+      .catch(err => err.error ?
+        this.setState({ errors: err.error, loading: false }) :
+        this.setState({ errors: { general: 'Something happened, please try again' }, loading: false }))
+  }
   DropzoneCallBack = childData => this.setState({ files: childData });
   TimePickerCallBack = childData => this.setState({ expiredDate: childData });
-  // TEST
-  checkState = () => console.log(this.state);
 
   render() {
     const { classes } = this.props;
+    const { errors, loading } = this.state
 
     return (
       <Fragment>
@@ -88,8 +97,8 @@ class AuctionDialog extends Component {
               name="name"
               label="Name"
               placeholder="Your auction's display name"
-              error={this.state.error.name ? true : false}
-              helperText={this.state.error.name}
+              error={errors.name ? true : false}
+              helperText={errors.name}
               className={classes.textField}
               onChange={this.handleChange}
               fullWidth
@@ -100,8 +109,8 @@ class AuctionDialog extends Component {
               label="Initial Bid"
               placeholder="Your auction's inital bid in Australian Dollar (AUD)"
               type="number"
-              error={this.state.error.initialBid ? true : false}
-              helperText={this.state.error.initialBid}
+              error={errors.initialBid ? true : false}
+              helperText={errors.initialBid}
               className={classes.textField}
               onChange={this.handleChange}
               fullWidth
@@ -111,8 +120,8 @@ class AuctionDialog extends Component {
               name="condition"
               label="Condition"
               placeholder="Your auction product's condition"
-              error={this.state.error.condition ? true : false}
-              helperText={this.state.error.condition}
+              error={errors.condition ? true : false}
+              helperText={errors.condition}
               className={classes.textField}
               onChange={this.handleChange}
               fullWidth
@@ -122,8 +131,8 @@ class AuctionDialog extends Component {
               name="description"
               label="Description"
               placeholder="Your auction's details here"
-              error={this.state.error.description ? true : false}
-              helperText={this.state.error.description}
+              error={errors.description ? true : false}
+              helperText={errors.description}
               className={classes.textField}
               onChange={this.handleChange}
               multiline
@@ -135,16 +144,25 @@ class AuctionDialog extends Component {
               classes={classes.textField}
             />
             {displayFiles(this.state.files)}
+
+            {errors.general && (
+              <Typography variant="body2" className={classes.customError}>
+                {errors.general}
+              </Typography>
+            )}
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.checkState} color="primary">
-              State
-            </Button>
             <Button onClick={this.handleClose} color="secondary">
               Cancel
             </Button>
             <Button onClick={this.handleSubmit} color="primary" autoFocus>
               Submit
+              {loading && (
+                <CircularProgressIcon
+                  size={30}
+                  className={classes.progress}
+                />
+              )}
             </Button>
           </DialogActions>
         </Dialog>

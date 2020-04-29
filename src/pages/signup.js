@@ -29,8 +29,8 @@ class signup extends Component {
       password: "",
       confirmPassword: "",
       success: false,
-      errors: {},
       loading: false,
+      errors: {},
     };
     this.initialState = this.state;
   }
@@ -41,7 +41,7 @@ class signup extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    this.setState({ loading: true });
+    this.setState({ loading: true, errors: {} });
     signupUser(this.state)
       .then((res) => {
         this.setState(this.initialState);
@@ -57,7 +57,7 @@ class signup extends Component {
   };
   render() {
     const { classes } = this.props;
-    const { errors } = this.state;
+    const { errors, loading } = this.state;
     return (
       <Fragment>
         <Card className={classes.root}>
@@ -136,10 +136,10 @@ class signup extends Component {
                     variant="contained"
                     color="primary"
                     className={classes.button}
-                    disabled={this.state.loading}
+                    disabled={loading}
                   >
                     Signup
-                    {this.state.loading && (
+                    {loading && (
                       <CircularProgressIcon
                         size={30}
                         className={classes.progress}

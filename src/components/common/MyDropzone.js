@@ -38,7 +38,7 @@ function MyDropzone(props) {
         {({ getRootProps, getInputProps }) => (
           <div {...getRootProps({ style })}>
             <input {...getInputProps()} />
-            <p>Drag 'n' drop, or click to select file(s)</p>
+            <p>Drag 'n' drop, or click to select image(s)</p>
           </div>
         )}
       </Dropzone>

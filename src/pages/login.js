@@ -30,7 +30,7 @@ class login extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    this.setState({ loading: true });
+    this.setState({ loading: true, errors: {} });
     loginUser(this.state)
       .then((res) => {
         this.setState(this.initialState);

@@ -52,7 +52,7 @@ class auctionDetails extends Component {
         
         return (
             <Fragment>
-                <Typography variant="h5">Searching for <b>{auctionName}</b></Typography>
+                <Typography variant="h5">Searching for "{auctionName}"</Typography>
                 {loading ? 'loading...' : <Fragment>
                     <Grid container spacing={2}>
                         {auctionMarkup}
