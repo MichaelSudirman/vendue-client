@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import MarketIcon from "../images/market_128.png";
+import MarketIcon from "../images/market_640.png";
 import { Link } from "react-router-dom";
 // Actions
 import { loginUser } from "../actions/userActions";
@@ -58,7 +58,7 @@ class login extends Component {
               <Grid item sm />
               <Grid item sm>
                 <img src={MarketIcon} alt="app" className={classes.image} />
-                <Typography variant="h2" className={classes.pageTitle}>
+                <Typography variant="h4" className={classes.pageTitle}>
                   Login
                 </Typography>
                 <form noValidate onSubmit={this.handleSubmit}>

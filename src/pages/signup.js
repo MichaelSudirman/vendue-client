@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import MarketIcon from "../images/market_128.png";
+import MarketIcon from "../images/market_640.png";
 import { Link } from "react-router-dom";
 // Component
 // Actions
