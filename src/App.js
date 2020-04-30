@@ -43,7 +43,6 @@ axios.interceptors.response.use(
   (response) => response,
   (error) => {
     console.log("axiosInterceptors", error.response);
-    console.log(error);
     const statusUnauthorized = error.response.status === 401;
     const isTokenError = error.response.data.error.token;
     if (statusUnauthorized && isTokenError) logoutUser();

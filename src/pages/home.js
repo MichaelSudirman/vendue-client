@@ -17,7 +17,6 @@ class auctionList extends Component {
     readAuctions()
       .then((res) => this.setState({ auctions: res, loading: false }))
       .catch((err) => console.log("homeGetAuctions", err))
-      // .then(this.setState({ loading: false }))
   }
 
   render() {

@@ -43,7 +43,6 @@ export const readAuctions = () => {
 
 export const searchAuctions = dataUrl => {
   const searchUrl = '/auction/name='.concat(dataUrl)
-  console.log('calling search', dataUrl)
 
   return axios.get(searchUrl)
     .then(res => res.data.payload)
@@ -51,9 +50,3 @@ export const searchAuctions = dataUrl => {
       throw err.response.data
     })
 }
-
-// export const searchAuctions = data => {
-//   return axios.post('/auction/name?data')
-//     .then(err => console.log(err))
-//     .catch(err => { throw err.response.data })
-// }
