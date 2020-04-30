@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 // Component and utils
 import AuctionBox from "../components/auction/AuctionBox";
-import { getUrl } from "../utils/environment";
 // Actions
 import { readAuctions } from "../actions/dataActions";
 // Material UI core imports
@@ -13,18 +12,12 @@ class auctionList extends Component {
     auctions: [],
     loading: true,
   };
-  getAuctions = () => {
-    readAuctions()
-      .then((res) => this.setState({ auctions: res }))
-      .catch((err) => console.log("homeGetAuctions", err))
-      .then(this.setState({ loading: false }))
-  };
 
   componentDidMount() {
     readAuctions()
-      .then((res) => this.setState({ auctions: res }))
+      .then((res) => this.setState({ auctions: res, loading: false }))
       .catch((err) => console.log("homeGetAuctions", err))
-      .then(this.setState({ loading: false }))
+      // .then(this.setState({ loading: false }))
   }
 
   render() {

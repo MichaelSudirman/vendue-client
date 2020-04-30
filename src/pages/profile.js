@@ -12,16 +12,22 @@ import Grid from "@material-ui/core/Grid";
 
 const styles = (theme) => ({
   ...theme.global,
+  profileTitle: {
+    height:20
+    // display: 'flex',
+
+    // justifyContent: 'space-between',
+  },
+  notFullWidth: {
+    display: 'inlineBlock'
+  },
   imageBox: {
     textAlign: "center",
-    // display:'flex',
-    // justifyContent:'center',
-    // height: 64,
-    // width: '100wh',
     borderRadius: 1,
     border: "1px solid rgb(245, 245, 245)",
     boxShadow:
       "0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);",
+
   },
 });
 
@@ -58,10 +64,17 @@ class profile extends Component {
                 <Grid item sm>
                   <Card className={classes.root}>
                     <CardContent>
-                      <Typography variant="h5" className={classes.pageTitle}>
-                        Profile
-                    </Typography>
-                      <ProfileDialog user={user} handler={this.handler} />
+                      <Grid container className={classes.pageTitle}>
+                      {/* <div className={classes.profileTitle}> */}
+                      <Grid item sm={6}>
+                        <Typography variant="h5" className={`${classes.pageTitle}`}>
+                          Profile
+                      </Typography>
+                      </Grid>
+                      <Grid item sm={6}>
+                        <ProfileDialog user={user} handler={this.handler} />
+                      </Grid></Grid>
+                      {/* </div> */}
                       <div className={classes.imageBox}>
                         <img
                           src={user.imageUrl}
@@ -70,7 +83,7 @@ class profile extends Component {
                           alt="profile"
                         />
                       </div>
-                      <Typography>User: {user._id}</Typography>
+                      <Typography>User Id: {user._id}</Typography>
                       <Typography>Username: {user.username}</Typography>
                       <Typography>Email: {user.email}</Typography>
                       <Typography>

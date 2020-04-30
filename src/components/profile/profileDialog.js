@@ -9,6 +9,8 @@ import { updateProfile } from "../../actions/userActions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import CircularProgressIcon from "@material-ui/core/CircularProgress";
+import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -18,8 +20,13 @@ import EditIcon from "@material-ui/icons/Edit";
 
 const styles = (theme) => ({
   ...theme.global,
-  input: {},
-  button: {},
+  editButton: {
+    position: "relative",
+    float: "right",
+    // margin: 10,
+    // top:20
+    top: -10
+  },
   textField: {
     marginBottom: 20,
   },
@@ -39,7 +46,8 @@ class profileDialog extends Component {
       description: '',
       location: '',
       files: [],
-      error: {},
+      loading: false,
+      errors: {},
     };
     // Create an initialState
     this.initialState = this.state;
@@ -55,22 +63,26 @@ class profileDialog extends Component {
   handleClose = () => this.setState({ error: {}, open: false });
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
   DropzoneCallBack = childData => this.setState({ files: childData });
-  handleSubmit = () =>
+  handleSubmit = () => {
+    this.setState({ loading: true })
     updateProfile(this.state)
       .then(res => {
         this.props.handler()
+        this.setState({ loading: false })
         this.handleClose()
       })
-      .catch(err => this.setState({ error: err }));
-
+      .catch(err => this.setState({ error: err, loading: false }));
+  }
   render() {
     const { classes } = this.props;
-    const { location, description, imageUrl } = this.state;
+    const { location, description, errors, loading } = this.state;
     return (
       <Fragment>
-        <MyButton tip="Edit Icon" onClick={this.handleOpen}>
-          <EditIcon />
-        </MyButton>
+        <div className={classes.editButton}>
+          <MyButton tip="Edit Icon" onClick={this.handleOpen}>
+            <EditIcon />
+          </MyButton>
+        </div>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -79,15 +91,14 @@ class profileDialog extends Component {
         >
           <DialogTitle id="alert-dialog-title">Edit Your Profile</DialogTitle>
           <DialogContent>
-            {imageUrl}
             <TextField
               id="description"
               name="description"
               label="Description"
               placeholder="Tell more about yourself"
               value={description}
-              error={this.state.error.description ? true : false}
-              helperText={this.state.error.description}
+              error={errors.description ? true : false}
+              helperText={errors.description}
               className={classes.textField}
               onChange={this.handleChange}
               fullWidth
@@ -99,8 +110,8 @@ class profileDialog extends Component {
               label="Location"
               placeholder="Tell more about your current location"
               value={location}
-              error={this.state.error.location ? true : false}
-              helperText={this.state.error.location}
+              error={errors.location ? true : false}
+              helperText={errors.location}
               className={classes.textField}
               onChange={this.handleChange}
               fullWidth
@@ -110,16 +121,25 @@ class profileDialog extends Component {
               classes={classes.textField}
             />
             {displayFiles(this.state.files)}
+
+            {errors.general && (
+              <Typography variant="body2" className={classes.customError} >
+                {errors.general}
+              </Typography>
+            )}
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.checkState} color="primary">
-              State
-            </Button>
             <Button onClick={this.handleClose} color="secondary">
               Cancel
             </Button>
             <Button onClick={this.handleSubmit} color="primary" autoFocus>
               Submit
+              {loading && (
+                <CircularProgressIcon
+                  size={30}
+                  className={classes.progress}
+                />
+              )}
             </Button>
           </DialogActions>
         </Dialog>

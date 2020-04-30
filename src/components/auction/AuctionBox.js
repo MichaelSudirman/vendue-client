@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // Components and utils
 import countdown from "../../utils/countdown";
 // Material UI Core Imports
@@ -31,6 +31,18 @@ const styles = (theme) => ({
     boxShadow:
       "0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);",
   },
+  boxTitle: {
+    whiteSpace: 'normal',
+    marginLeft:20,
+    marginRight:20,
+    height: 32
+  },
+  boxText :{
+    whiteSpace: 'normal',
+    maxHeight: 20,
+    marginLeft:15,
+    marginRight:15
+  }
 });
 
 class AuctionBox extends Component {
@@ -57,7 +69,7 @@ class AuctionBox extends Component {
                 className={classes.box}
               >
                 <CardContent>
-                  <Typography variant="h6">{name}</Typography>
+                  <Typography variant="h6" noWrap className={classes.boxTitle}>{name}</Typography>
                 </CardContent>
                 <div className={classes.imageBox}>
                   <img
@@ -68,13 +80,13 @@ class AuctionBox extends Component {
                   />
                 </div>
                 <CardContent>
-                  <Typography variant="body2">
+                  <Typography variant="body2" className={classes.boxText}>
                     <b>{timeLeft}</b> left
                   </Typography>
-                  <Typography variant="body2">
+                  <Typography variant="body2" noWrap className={classes.boxText}>
                     Initial bid: <b>{initialBid}</b> by <b>{sellerName}</b>
                   </Typography>
-                  <Typography variant="body2">
+                  <Typography variant="body2" noWrap className={classes.boxText}>
                     Highest bid: <b>{0}</b> by <b>{"dummy"}</b>
                   </Typography>
                 </CardContent>

@@ -23,6 +23,15 @@ export const createAuction = data => {
     });
 };
 
+export const readAuction = dataUrl => {
+  return axios
+    .get(`/auction/${dataUrl}/detail`)
+    .then(res => res.data.payload)
+    .catch(err => {
+      throw err.response.data
+    })
+}
+
 export const readAuctions = () => {
   return axios
     .get("/auction/unfinished")
@@ -42,6 +51,7 @@ export const searchAuctions = dataUrl => {
       throw err.response.data
     })
 }
+
 // export const searchAuctions = data => {
 //   return axios.post('/auction/name?data')
 //     .then(err => console.log(err))
