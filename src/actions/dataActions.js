@@ -50,3 +50,21 @@ export const searchAuctions = dataUrl => {
       throw err.response.data
     })
 }
+
+export const createComment = (auctionId, commentInput) => {
+  console.log(commentInput)
+  const data = {'data': commentInput}
+  return axios.post(`/auction/${auctionId}/comment`, data)
+    .then(res => res.data.payload)
+    .catch(err => {
+      throw err.response.data
+    })
+}
+
+export const readComments = auctionId => {
+  return axios.get(`/auction/${auctionId}/comments`)
+    .then(res => res.data.payload)
+    .catch(err => {
+      throw err.response.data
+    })
+}
