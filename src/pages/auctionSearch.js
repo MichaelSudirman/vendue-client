@@ -13,7 +13,7 @@ const styles = (theme) => ({
     ...theme.global,
 });
 
-class auctionDetails extends Component {
+class auctionSearch extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -64,4 +64,4 @@ class auctionDetails extends Component {
     }
 }
 
-export default withRouter(withStyles(styles)(auctionDetails));
+export default withRouter(withStyles(styles)(auctionSearch));

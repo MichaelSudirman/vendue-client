@@ -1,14 +1,16 @@
 import React, { Component, Fragment } from "react";
 // Components and utils
 import countdown from "../../utils/countdown";
+import MyButton from '../common/MyButton';
 // Actions
 import { createComment, readComments } from '../../actions/dataActions'
 // Material UI core imports
 import withStyles from "@material-ui/core/styles/withStyles";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+// Material UI icon imports
+import SendIcon from '@material-ui/icons/Send';
 
 
 const styles = (theme) => ({
@@ -25,14 +27,14 @@ const styles = (theme) => ({
     title: {
         padding: 0,
         lineHeight: 1
-    }
-    ,
-    caption: {
-        // translate
+    },
+    form :{
+        display: 'flex',
+        justifyContent: 'center'
     }
 });
 
-class AuctionComments extends Component {
+class AuctionComment extends Component {
     state = {
         loading: false,
         comments: [],
@@ -104,7 +106,7 @@ class AuctionComments extends Component {
         })
         return (
             <Fragment>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} className={classes.form}>
                     <TextField
                         id="commentInput"
                         name="commentInput"
@@ -114,9 +116,12 @@ class AuctionComments extends Component {
                         helperText={errors.commentInput}
                         className={classes.textField}
                         onChange={this.handleChange}
+                        multiline
                         fullWidth
                     />
-                    <Button variant="outline" color="primary">Submit</Button>
+                    <MyButton tip={"Submit"} onClick={this.handleSubmit}>
+                        <SendIcon />
+                    </MyButton>
                 </form>
                 {loading ? ("loading...") : commentMarkup}
             </Fragment>
@@ -124,4 +129,4 @@ class AuctionComments extends Component {
     }
 }
 
-export default withStyles(styles)(AuctionComments);
+export default withStyles(styles)(AuctionComment);

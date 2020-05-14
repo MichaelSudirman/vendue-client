@@ -5,7 +5,7 @@ import "./App.css";
 // Components and utils
 import Navbar from "./components/layout/Navbar";
 import themeObject from "./utils/theme";
-import { getUrl } from "./utils/environment";
+// import { getUrl } from "./utils/environment";
 // Pages
 import home from "./pages/home";
 import login from "./pages/login";

@@ -1,16 +1,27 @@
 import React, { Component, Fragment } from "react";
 // Components and utils
-import AuctionDetails from '../components/auction/AuctionDetails'
-import AuctionComments from '../components/auction/AuctionComments'
+import AuctionInfo from '../components/auction/AuctionInfo';
+import AuctionComment from '../components/auction/AuctionComment';
 // Actions
 import { readAuction } from '../actions/dataActions';
 // Material UI core imports
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
+// Material UI Lab Imports
+import Alert from "@material-ui/lab/Alert";
 
 const styles = (theme) => ({
   ...theme.global,
+  discussionBox: {
+    padding: 20,
+    paddingTop: 50,
+    [theme.breakpoints.down('sm')]: {
+      padding: 0,
+      paddingTop: 50,
+    },
+  }
 });
+
 class auctionDetails extends Component {
   state = {
     auction: null,
@@ -27,10 +38,15 @@ class auctionDetails extends Component {
     const { classes } = this.props
     const { auction, loading, error } = this.state
     const auctionMarkup = auction ? <Fragment>
-      <AuctionDetails auction={auction} />
-      <AuctionComments auctionId={auction._id.$oid} />
+      <AuctionInfo auction={auction} />
+      <div className={classes.discussionBox}>
+        <Typography variant="h5">Comments and Discussions</Typography>
+        <AuctionComment auctionId={auction._id.$oid} />
+      </div>
     </Fragment> :
-      'no auction with such id (styling on progress)'
+      <Alert severity="error">
+        Auction does not exist!
+      </Alert>
 
     return (
       <Fragment>

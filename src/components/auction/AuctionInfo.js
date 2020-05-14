@@ -12,7 +12,7 @@ import CardContent from "@material-ui/core/CardContent";
 const styles = (theme) => ({
     ...theme.global,
 });
-class AuctionDetails extends Component {
+class AuctionInfo extends Component {
     render() {
         const { classes } = this.props
         const { auction: {
@@ -63,4 +63,4 @@ class AuctionDetails extends Component {
     }
 }
 
-export default withStyles(styles)(AuctionDetails);
+export default withStyles(styles)(AuctionInfo);
