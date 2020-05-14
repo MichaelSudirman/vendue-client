@@ -26,8 +26,8 @@ import Grid from "@material-ui/core/Grid";
   setting axios default url under the POST bug,
   cannot POST using proxy key under pacakage.json
 */
-axios.defaults.baseURL = getUrl();
-// axios.defaults.baseURL = "https://vendue.herokuapp.com/";
+// axios.defaults.baseURL = getUrl();
+axios.defaults.baseURL = "https://vendue.herokuapp.com/";
 
 axios.interceptors.request.use(
   (config) => {
