@@ -34,6 +34,14 @@ export const loginUser = data => {
     });
 };
 
+export const validateUserEmail = token => {
+  return axios.get(`/validate/${token}`)
+    .then(res => res.data)
+    .catch(err => {
+      throw err.response.data
+    })
+}
+
 export const logoutUser = () => {
   localStorage.removeItem("Authorization");
   delete axios.defaults.headers.common["Authorization"];

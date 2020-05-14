@@ -68,8 +68,8 @@ class signup extends Component {
                 {this.state.success && (
                   <Alert severity="success">
                     You have signed up successfully! -
-                    <Link to="/login"> Login </Link>
-                    to continue
+                    We have sent you a confirmation email
+                    so you can validate your account
                   </Alert>
                 )}
                 <img src={MarketIcon} alt="app" className={classes.image} />

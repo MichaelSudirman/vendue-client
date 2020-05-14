@@ -14,6 +14,7 @@ import profile from "./pages/profile";
 import auctionList from "./pages/auctionList";
 import auctionDetails from "./pages/auctionDetails.js";
 import auctionSearch from './pages/auctionSearch.js';
+import validate from './pages/validate.js';
 // Actions
 import { logoutUser } from "./actions/userActions";
 // Material UI core imports
@@ -68,6 +69,7 @@ class App extends Component {
                   <Route exact path="/" component={home} />
                   <Route exact path="/login" component={login} />
                   <Route exact path="/signup" component={signup} />
+                  <Route exact path="/validate/:token" component={validate} />
                   <Route exact path="/profile" component={profile} />
                   <Route exact path="/auctions" component={auctionList} />
                   <Route exact path="/auction/:auctionId" component={auctionDetails} />
