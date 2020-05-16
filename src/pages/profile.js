@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 // Components and utils
-import ProfileDialog from "../components/profile/profileDialog";
+import UserDialog from "../components/user/UserDialog";
 // Actions
 import { readMyProfile } from "../actions/userActions";
 // Material UI core imports
@@ -72,7 +72,7 @@ class profile extends Component {
                       </Typography>
                       </Grid>
                       <Grid item sm={6}>
-                        <ProfileDialog user={user} handler={this.handler} />
+                        <UserDialog user={user} handler={this.handler} />
                       </Grid></Grid>
                       {/* </div> */}
                       <div className={classes.imageBox}>

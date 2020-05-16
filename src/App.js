@@ -5,7 +5,7 @@ import "./App.css";
 // Components and utils
 import Navbar from "./components/layout/Navbar";
 import themeObject from "./utils/theme";
-// import { getUrl } from "./utils/environment";
+import { getUrl } from "./utils/environment";
 // Pages
 import home from "./pages/home";
 import login from "./pages/login";
@@ -14,7 +14,9 @@ import profile from "./pages/profile";
 import auctionList from "./pages/auctionList";
 import auctionDetails from "./pages/auctionDetails.js";
 import auctionSearch from './pages/auctionSearch.js';
-import validate from './pages/validate.js';
+import validateEmail from './pages/validateEmail.js';
+import requestResetPassword from './pages/requestResetPassword.js';
+import validateResetPassword from './pages/validateResetPassword.js';
 // Actions
 import { logoutUser } from "./actions/userActions";
 // Material UI core imports
@@ -69,7 +71,9 @@ class App extends Component {
                   <Route exact path="/" component={home} />
                   <Route exact path="/login" component={login} />
                   <Route exact path="/signup" component={signup} />
-                  <Route exact path="/validate/:token" component={validate} />
+                  <Route exact path="/validate/e/:token" component={validateEmail} />
+                  <Route exact path="/reset/p" component={requestResetPassword} />
+                  <Route exact path="/reset/t/:token" component={validateResetPassword} />
                   <Route exact path="/profile" component={profile} />
                   <Route exact path="/auctions" component={auctionList} />
                   <Route exact path="/auction/:auctionId" component={auctionDetails} />

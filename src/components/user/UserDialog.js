@@ -38,7 +38,7 @@ const displayFiles = files =>
     </li>
   ));
 
-class profileDialog extends Component {
+class UserDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -148,4 +148,4 @@ class profileDialog extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(profileDialog));
+export default withRouter(withStyles(styles)(UserDialog));

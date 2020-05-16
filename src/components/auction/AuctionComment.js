@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from "react";
 // Components and utils
 import countdown from "../../utils/countdown";
-import MyButton from '../common/MyButton';
 // Actions
 import { createComment, readComments } from '../../actions/dataActions'
 // Material UI core imports
 import withStyles from "@material-ui/core/styles/withStyles";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 // Material UI icon imports
 import SendIcon from '@material-ui/icons/Send';
@@ -119,9 +119,7 @@ class AuctionComment extends Component {
                         multiline
                         fullWidth
                     />
-                    <MyButton tip={"Submit"} onClick={this.handleSubmit}>
-                        <SendIcon />
-                    </MyButton>
+                    <Button color="primary" onClick={this.handleSubmit}><SendIcon/></Button>
                 </form>
                 {loading ? ("loading...") : commentMarkup}
             </Fragment>

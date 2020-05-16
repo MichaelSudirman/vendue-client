@@ -35,8 +35,33 @@ export const loginUser = data => {
 };
 
 export const validateUserEmail = token => {
-  return axios.get(`/validate/${token}`)
+  return axios.get(`/validate_email/${token}`)
     .then(res => res.data)
+    .catch(err => {
+      throw err.response.data
+    })
+}
+
+export const requestResetPasswordToken = data => {
+  return axios.post('/reset_password/request', data)
+    .then(res => res.data)
+    .catch(err => {
+      throw err.response.data
+    })
+}
+
+export const checkResetPasswordToken = (token) => {
+  return axios.get(`/reset_password/check/${token}`)
+    .then(res => res.data.payload)
+    .catch(err => {
+      throw err.response.data
+    })
+}
+
+export const updateUserPassword = data => {
+  console.log('test')
+  return axios.post('/reset_password/update', data)
+    .then(res => res.data.payload)
     .catch(err => {
       throw err.response.data
     })
