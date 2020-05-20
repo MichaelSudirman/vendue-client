@@ -2,6 +2,7 @@ import axios from "axios";
 // Components and utils
 import { getUnixTime } from "../utils/common";
 
+// Create an auction
 export const createAuction = data => {
   const formData = new FormData();
   const unixTime = getUnixTime(data.expiredDate);
@@ -23,6 +24,7 @@ export const createAuction = data => {
     });
 };
 
+// Read one detailed auction
 export const readAuction = dataUrl => {
   return axios
     .get(`/auction/${dataUrl}/detail`)
@@ -31,7 +33,7 @@ export const readAuction = dataUrl => {
       throw err.response.data
     })
 }
-
+// Read multiple auctions
 export const readAuctions = () => {
   return axios
     .get("/auction/unfinished")
@@ -40,29 +42,67 @@ export const readAuctions = () => {
       throw err.response.data;
     });
 };
-
+// Read user involved auctions
+export const userAuctions = () =>{
+  return axios
+  .get('/auction/myauctions')
+  .then(res=> res.data.payload)
+  .catch(err=>{
+    throw err.response.data;
+  })
+}
+// Read liked auctions
+export const likedAuctions = () =>{
+  return axios
+  .get('/auction/likedauctions')
+  .then(res=> res.data.payload)
+  .catch(err=>{
+    throw err.response.data;
+  })
+}
+// Search auctions
 export const searchAuctions = dataUrl => {
-  const searchUrl = '/auction/name='.concat(dataUrl)
-
-  return axios.get(searchUrl)
+  return axios
+    .get(`/auction/name=${dataUrl}`)
     .then(res => res.data.payload)
     .catch(err => {
       throw err.response.data
     })
 }
 
+
+// Create and read comment(s)
 export const createComment = (auctionId, commentInput) => {
   console.log(commentInput)
-  const data = {'data': commentInput}
-  return axios.post(`/auction/${auctionId}/comment`, data)
+  const data = { 'data': commentInput }
+  return axios
+    .post(`/auction/${auctionId}/comment`, data)
+    .then(res => res.data.payload)
+    .catch(err => {
+      throw err.response.data
+    })
+}
+export const readComments = auctionId => {
+  return axios
+    .get(`/auction/${auctionId}/comments`)
     .then(res => res.data.payload)
     .catch(err => {
       throw err.response.data
     })
 }
 
-export const readComments = auctionId => {
-  return axios.get(`/auction/${auctionId}/comments`)
+// Like and unlike auction
+export const likeAuction = auctionId => {
+  return axios
+    .get(`/auction/${auctionId}/like`)
+    .then(res => res.data.payload)
+    .catch(err => {
+      throw err.response.data
+    })
+}
+export const unlikeAuction = auctionId => {
+  return axios
+    .get(`/auction/${auctionId}/unlike`)
     .then(res => res.data.payload)
     .catch(err => {
       throw err.response.data

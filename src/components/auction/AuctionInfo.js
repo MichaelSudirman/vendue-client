@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 // Components and utils
 import countdown from "../../utils/countdown";
+import LikeButton from './LikeButton'
 // Actions
 // Material UI core imports
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -14,31 +15,31 @@ const styles = (theme) => ({
 });
 class AuctionInfo extends Component {
     render() {
-        const { classes } = this.props
-        const { auction: {
-            _id: { $oid: auctionId },
-            name,
-            initialBid,
-            condition,
-            expiredDate,
-            seller: { username: sellerName },
-            imageUrls,
-            hasFinished,
-            createdAt
-        } } = this.props
+        const { classes,
+            auction: {
+                _id: { $oid: auctionId },
+                name,
+                initialBid,
+                condition,
+                expiredDate,
+                seller: { username: sellerName },
+                imageUrls,
+                hasFinished,
+                createdAt,
+                likes
+            } } = this.props
         const start = new Date(expiredDate * 1000);
         const timeLeft = countdown(start).toString();
         const creationDate = new Date(createdAt * 1000).toString();
-        const images = <Fragment>
-            {imageUrls.map(imageUrl => <div className={classes.imageBox}>
+        const images = imageUrls.map(imageUrl =>
+            <div className={classes.imageBox} key={imageUrl}>
                 <img
                     src={imageUrl}
                     height={64}
                     width={64}
                     alt="auction"
                 />
-            </div>)}
-        </Fragment>
+            </div>)
 
         return (
             <Fragment>
@@ -54,6 +55,8 @@ class AuctionInfo extends Component {
                         <Typography>Auction created At{creationDate}</Typography>
                         <Typography>Status: {hasFinished ? 'has finished' : 'on-going'}</Typography>
                         {images}
+                        <LikeButton auctionId={auctionId} userIdList={likes} />
+
                         (styling on progress)
 
                     </CardContent>

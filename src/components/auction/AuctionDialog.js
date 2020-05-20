@@ -60,7 +60,8 @@ class AuctionDialog extends Component {
     createAuction(this.state)
       .then(res => {
         this.setState(this.initialState);
-        this.setState({ loading: false })
+        this.setState({ loading: false });
+        this.props.parentCallBack()
       })
       .catch(err => err.error ?
         this.setState({ errors: err.error, loading: false }) :
@@ -72,7 +73,9 @@ class AuctionDialog extends Component {
   render() {
     const { classes } = this.props;
     const { errors, loading } = this.state
-
+    // console.log(this.props)
+    // this.props.parentCallBack()
+    
     return (
       <Fragment>
         <Button

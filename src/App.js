@@ -14,6 +14,7 @@ import profile from "./pages/profile";
 import auctionList from "./pages/auctionList";
 import auctionDetails from "./pages/auctionDetails.js";
 import auctionSearch from './pages/auctionSearch.js';
+import auctionFavorite from './pages/auctionFavorite.js';
 import validateEmail from './pages/validateEmail.js';
 import requestResetPassword from './pages/requestResetPassword.js';
 import validateResetPassword from './pages/validateResetPassword.js';
@@ -28,8 +29,8 @@ import Grid from "@material-ui/core/Grid";
   setting axios default url under the POST bug,
   cannot POST using proxy key under pacakage.json
 */
-// axios.defaults.baseURL = getUrl();
-axios.defaults.baseURL = "https://vendue.herokuapp.com/";
+axios.defaults.baseURL = getUrl();
+// axios.defaults.baseURL = "https://vendue.herokuapp.com/";
 
 axios.interceptors.request.use(
   (config) => {
@@ -76,6 +77,7 @@ class App extends Component {
                   <Route exact path="/reset/t/:token" component={validateResetPassword} />
                   <Route exact path="/profile" component={profile} />
                   <Route exact path="/auctions" component={auctionList} />
+                  <Route exact path="/favorites" component={auctionFavorite} />
                   <Route exact path="/auction/:auctionId" component={auctionDetails} />
                 </Switch>
               </Grid>

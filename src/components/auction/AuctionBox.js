@@ -33,15 +33,15 @@ const styles = (theme) => ({
   },
   boxTitle: {
     whiteSpace: 'normal',
-    marginLeft:20,
-    marginRight:20,
+    marginLeft: 20,
+    marginRight: 20,
     height: 32
   },
-  boxText :{
+  boxText: {
     whiteSpace: 'normal',
     maxHeight: 20,
-    marginLeft:15,
-    marginRight:15
+    marginLeft: 15,
+    marginRight: 15
   }
 });
 
@@ -55,7 +55,7 @@ class AuctionBox extends Component {
         initialBid,
         imageUrls,
         expiredDate,
-        seller: { username: sellerName },
+        seller: { username: sellerName }
       },
     } = this.props;
     const start = new Date(expiredDate * 1000);
@@ -93,8 +93,8 @@ class AuctionBox extends Component {
               </Card>
             </Tooltip>
           </Link>
-        </Grid>
-      </Fragment>
+        </Grid >
+      </Fragment >
     );
   }
 }
